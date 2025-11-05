@@ -44,11 +44,11 @@ function Navbar() {
       {/* Mobile Menu */}
       {menuOpen && (
         <ul className="flex flex-col bg-white shadow-md mt-4 p-4 md:hidden gap-3">
-          <li><Link to="/">Shop</Link></li>
-          <li><Link to="/product">All Products</Link></li>
-          <li><Link to="/gallery">Look Book</Link></li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
+          <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/">Shop</Link></li>
+          <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/product">All Products</Link></li>
+          <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/gallery">Look Book</Link></li>
+          <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/about">About</Link></li>
+          <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/contact">Contact</Link></li>
         </ul>
       )}
     </section>

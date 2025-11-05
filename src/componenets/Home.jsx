@@ -8,7 +8,7 @@ function Home() {
       <section id="hero" className="section-p1">
         <div className="banner">
           {/* <video autoplay muted loop src="videoimg/vid4.mp4"></video> */}
-          <img src="./videoimg/vd2.jpg" alt="" className="w-full" />
+          <img src="/videoimg/vd2.jpg" alt="" className="w-full" />
         </div>
       </section>
       <section
@@ -27,8 +27,8 @@ function Home() {
 
       <section id="banner" className="mt-10">
         <div className="flex">
-          <img src="./videoimg/wh2.jpg" alt="" className="w-[50%] h-[500px]" />
-          <img src="./videoimg/wh16.jpg" alt="" className="w-[50%] h-[500px]" />
+          <img src="/videoimg/wh2.jpg" alt="" className="w-[50%] h-[500px]" />
+          <img src="/videoimg/wh16.jpg" alt="" className="w-[50%] h-[500px]" />
         </div>
       </section>
     </div>
