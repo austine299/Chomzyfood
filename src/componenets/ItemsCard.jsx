@@ -14,11 +14,11 @@ function ItemsCard({ image, name, price }) {
   return (
     <div className="md:w-[31%] w-[90%] bg-slate-50 hover:bg-slate-200 shadow-md p-5 rounded-md flex flex-col transition-all">
       <div className="pb-3">
-        <img src={image} alt={name} className="rounded-md h-[200px] w-full object-cover" />
+        <img src={`${process.env.PUBLIC_URL}/${image}`} alt={name} className="rounded-md h-[200px] w-full object-cover" />
       </div>
       <div className="flex flex-col gap-3 justify-between">
         <h6 className="text-[15px] font-bold">{name}</h6>
-        <p className="text-[15px] italic font-bold text-red-500">{price}</p>
+        <p className="text-[15px] italic font-bold text-red-500">₦{price}</p>
         <button
           onClick={handleAddClick}
           className={`h-[40px] border border-red-800 rounded-md cursor-pointer font-bold text-white transition-all ${

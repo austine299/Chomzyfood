@@ -16,7 +16,7 @@ function Navbar() {
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex text-lg font-bold gap-6">
-          <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/">Shop</Link></li>
+          <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/">Home</Link></li>
           <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/product">All Products</Link></li>
           <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/gallery">Look Book</Link></li>
           <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/about">About</Link></li>
@@ -44,7 +44,7 @@ function Navbar() {
       {/* Mobile Menu */}
       {menuOpen && (
         <ul className="flex flex-col bg-white shadow-md mt-4 p-4 md:hidden gap-3">
-          <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/">Shop</Link></li>
+          <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/">Home</Link></li>
           <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/product">All Products</Link></li>
           <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/gallery">Look Book</Link></li>
           <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/about">About</Link></li>

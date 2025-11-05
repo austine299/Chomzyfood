@@ -11,7 +11,7 @@ import Cart from "./componenets/Cart";
 
 function App() {
   return (
-    <Router>
+    <Router  basename="/richfitstore">
       <CartProvider>
         <div className="App">
           <Navbar />
