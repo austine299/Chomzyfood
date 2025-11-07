@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { CartContext } from "./CartContext";
 import { FaTrashAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function CartPage() {
   const {
@@ -13,14 +14,14 @@ function CartPage() {
   } = useContext(CartContext);
 
   return (
-    <div className="pt-24 pb-10 px-6 md:px-20">
+    <div className="py-40 px-6 md:px-40">
       <h1 className="text-3xl font-bold mb-6">🛒 Your Cart</h1>
 
       {cart.length === 0 ? (
         <p className="italic text-gray-600">Your cart is empty.</p>
       ) : (
         <>
-          <ul className="flex flex-col gap-5  divide-y divide-gray-200 bg-white shadow-md rounded-md">
+          <ul className="flex flex-col gap-5  divide-y divide-gray-200 bg-white p-4 shadow-md rounded-md">
             {cart.map((item, index) => {
               const itemTotal = getItemTotal(item);
               return (
@@ -30,7 +31,7 @@ function CartPage() {
                 >
                   <div className="flex items-center gap-3 w-[50%]">
                     <img
-                      src={item.image}
+                      src={`${process.env.PUBLIC_URL}/${item.image}`}
                       alt={item.name}
                       className="w-16 h-16 object-cover rounded"
                     />
@@ -77,16 +78,16 @@ function CartPage() {
             })}
           </ul>
 
-          <div className="mt-6 text-right">
+          <div className="mt-6 text-right flex flex-col gap-5 items-end">
             <h3 className="text-xl font-bold">
               Total:{" "}
               <span className="text-red-600">
                 ₦{totalPrice.toLocaleString()}
               </span>
             </h3>
-            <button className="mt-3 bg-red-700 text-white px-6 py-2 rounded-md hover:bg-red-500 font-semibold">
+            <Link to="/paystack" className=" bg-red-700 text-white px-6 py-2 rounded-md hover:bg-red-500 font-semibold">
               Checkout
-            </button>
+            </Link>
           </div>
         </>
       )}

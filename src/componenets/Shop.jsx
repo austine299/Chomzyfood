@@ -28,7 +28,7 @@ function Shop() {
   };
   return (
     <div>
-      <div className="flex flex-wrap md:flex-row sm:flex-col  gap-5 w-full justify-center md:justify-start">
+      <div className="flex flex-wrap md:flex-row   gap-5 w-full justify-center md:justify-start">
         {products.map((product) => (
           <ItemsCard
             image={`${process.env.PUBLIC_URL}/${product.image}`}

@@ -8,6 +8,7 @@ import Contact from "./componenets/Contact";
 import Products from "./componenets/Products";
 import { CartProvider } from "./componenets/CartContext";
 import Cart from "./componenets/Cart";
+import PaystackIntegration from "./componenets/PaystackIntegration";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/paystack" element={<PaystackIntegration />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/product" element={<Products />} />

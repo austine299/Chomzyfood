@@ -30,7 +30,8 @@ function Gallery() {
       {photos.map((photo, index) => (
         <GalleryCard
           key={index}
-          image={photo.image}
+          image={`${process.env.PUBLIC_URL}/${photo.image}`}
+
           alt={`Gallery image ${index}`}
           onClick={() => handleImageClick(index)}
         />
@@ -53,10 +54,11 @@ function Gallery() {
             &#10094;
           </button>
 
+          {/* ✅ Corrected image path */}
           <img
-            src={photos[selectedIndex].image}
-            alt="enlarged view"
-            className="max-w-[80%] max-h-[80%] rounded-lg"
+            src={`${process.env.PUBLIC_URL}/${photos[selectedIndex].image}`}
+            alt={`Gallery image ${selectedIndex}`}
+            className="max-w-[80%] max-h-[80%]"
           />
 
           <button
