@@ -32,8 +32,8 @@ function Shop() {
         {products.map((product) => (
           <ItemsCard
           id={product.id}
-            image={`${process.env.PUBLIC_URL}/${product.image}`}
-            image1={`${process.env.PUBLIC_URL}/${product.image1}`}
+            image={`${product.image}`}
+            image1={`${product.image1}`}
             name={product.name}
             price={product.price}
             onAddToCart={handleAddToCart}

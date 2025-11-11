@@ -29,7 +29,7 @@ function ItemsCard({ image, image1, name, price, id }) {
         >
           <div className="pb-3 cursor-pointer">
             <img
-              src={`${productImg ? image1 : image}`}
+              src={`/${productImg ? image1 : image}`}
               alt={name}
               className="rounded-md h-[200px] w-full object-cover"
             />

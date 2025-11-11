@@ -1,19 +1,19 @@
-import Navbar from "./componenets/Navbar";
-import Home from "./componenets/Home";
-import Footer from "./componenets/Footer";
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import Footer from "./components/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Gallery from "./componenets/Gallery";
-import About from "./componenets/About";
-import Contact from "./componenets/Contact";
-import Products from "./componenets/Products";
-import { CartProvider } from "./componenets/CartContext";
-import Cart from "./componenets/Cart";
-import PaystackIntegration from "./componenets/PaystackIntegration";
-import ProductDetails from "./componenets/ProductDetails";
+import Gallery from "./components/Gallery";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Products from "./components/Products";
+import { CartProvider } from "./components/CartContext";
+import Cart from "./components/Cart";
+import PaystackIntegration from "./components/PaystackIntegration";
+import ProductDetails from "./components/ProductDetails";
 
 function App() {
   return (
-    <Router basename="/richfitstore">
+    <Router>
       <CartProvider>
         <div className="App">
           <Navbar />

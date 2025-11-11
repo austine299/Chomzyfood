@@ -30,7 +30,8 @@ function Gallery() {
       {photos.map((photo, index) => (
         <GalleryCard
           key={index}
-          image={`${process.env.PUBLIC_URL}/${photo.image}`}
+          image={`
+            /${photo.image}`}
 
           alt={`Gallery ${index}`}
           onClick={() => handleImageClick(index)}
@@ -55,7 +56,8 @@ function Gallery() {
           </button>
 
           <img
-            src={`${process.env.PUBLIC_URL}/${photos[selectedIndex].image}`}
+            src={`
+              /${photos[selectedIndex].image}`}
             alt={`Gallery ${selectedIndex}`}
             className="max-w-[80%] max-h-[80%]"
           />

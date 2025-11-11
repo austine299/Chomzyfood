@@ -24,7 +24,7 @@ function ProductDetails() {
       <div className="flex flex-col md:flex-row gap-8 items-center">
         <div className="flex flex-col gap-2 w-full">
           <img
-            src={`${process.env.PUBLIC_URL}/${mainImage}`}
+            src={`/${mainImage}`}
             alt={product.name}
             className="w-full object-cover rounded-lg mb-4"
           />
@@ -33,7 +33,7 @@ function ProductDetails() {
               (img, index) => (
                 <img
                   key={index}
-                  src={`${process.env.PUBLIC_URL}/${img}`}
+                  src={`/${img}`}
                   alt={`Thumbnail ${index + 1}`}
                   onClick={() => setMainImage(img)}
                   className={`w-[20%] rounded-lg ${

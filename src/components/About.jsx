@@ -6,7 +6,7 @@ function About() {
     <div className="pt-20 bg-slate-50">
       <div className="flex md:flex-row flex-col p-10 gap-5">
         <div className="md:w-[50%] w-full">
-          <img src={`${process.env.PUBLIC_URL}/videoimg/wh2.jpg`} alt="person"/>
+          <img src={`/videoimg/wh2.jpg`} alt="person"/>
         </div>
         <div className="flex flex-col gap-5 md:w-[50%] w-full pt-20">
           <h2 className="text-3xl font-bold">
@@ -107,7 +107,7 @@ function About() {
         </div>
         
         <div className="md:w-[50%] w-full">
-          <img src={`${process.env.PUBLIC_URL}/videoimg/wh15.jpg `}alt="person" />
+          <img src={`/videoimg/wh15.jpg `}alt="person" />
         </div>
       </div>
     </div>
