@@ -73,6 +73,7 @@ export default function CheckoutAndPay() {
             price: priceNum.toFixed(2),
             line_total: (priceNum * qtyNum).toFixed(2),
             image:  `${window.location.origin}/${item.image}` || "",
+            logo: `${window.location.origin}/images/img21.jpg`
           };
         });
 
