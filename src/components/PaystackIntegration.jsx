@@ -8,13 +8,11 @@ const STORAGE_KEY = "checkout_address_v1";
 export default function CheckoutAndPay() {
   const { totalPrice, cart } = useContext(CartContext);
 
-  // Payment identity
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [amount, setAmount] = useState(totalPrice);
 
-  // Delivery details
   const [address, setAddress] = useState({
     receiverName: "",
     phone: "",
@@ -27,19 +25,13 @@ export default function CheckoutAndPay() {
     instructions: "",
   });
 
-  // Load saved address from localStorage
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) setAddress(JSON.parse(saved));
-    } catch {}
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) setAddress(JSON.parse(saved));
   }, []);
 
-  // Save every change
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(address));
-    } catch {}
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(address));
   }, [address]);
 
   const updateAddress = (k, v) => setAddress((a) => ({ ...a, [k]: v }));
@@ -57,34 +49,30 @@ export default function CheckoutAndPay() {
 
   const payNow = (e) => {
     e.preventDefault();
-
     const err = validate();
     if (err) return alert(err);
 
     const paystack = new PaystackPop();
-
     paystack.newTransaction({
       key: process.env.REACT_APP_PAYSTACK_PUBLIC_KEY,
-      amount: Math.round(Number(amount) * 100), // kobo
+      amount: Math.round(Number(amount) * 100),
       email,
       first_name: firstName,
       last_name: lastName,
-      metadata: {
-        delivery_snapshot: { ...address },
-      },
+      metadata: { delivery_snapshot: { ...address } },
       onSuccess: async (tx) => {
         alert(`Payment Complete! Ref: ${tx.reference}`);
 
-        // -------- Build EmailJS payload to match your template --------
-        // Items for the {{#orders}} loop
-        const orders = cart.map((i) => {
-          const priceNum = Number(i.price) || 0;
-          const qtyNum = Number(i.quantity) || 0;
+        // Build orders array for EmailJS
+        const orders = cart.map((item) => {
+          const priceNum = Number(item.price) || 0;
+          const qtyNum = Number(item.quantity) || 0;
           return {
-            name: i.name,
-            units: qtyNum,                         // template uses {{units}}
-            price: priceNum.toFixed(2),            // template shows ${{price}}
-            line_total: (priceNum * qtyNum).toFixed(2), // in case you add it to template
+            name: item.name,
+            units: qtyNum,
+            price: priceNum.toFixed(2),
+            line_total: (priceNum * qtyNum).toFixed(2),
+            image: item.image || "",
           };
         });
 
@@ -92,25 +80,21 @@ export default function CheckoutAndPay() {
           (sum, it) => sum + parseFloat(it.line_total),
           0
         );
-
-        // Set these to your real values if needed
         const shippingNum = 0;
         const taxNum = 0;
 
         const templateParams = {
-          email: email.trim(),            // {{email}} (To Email)
-          order_id: tx.reference,         // {{order_id}}
-          orders,                         // {{#orders}}...{{/orders}}
-          cost: {                         // {{cost.shipping}} {{cost.tax}} {{cost.total}}
+          email: email.trim(),
+          order_id: tx.reference,
+          orders,
+          cost: {
             shipping: shippingNum.toFixed(2),
             tax: taxNum.toFixed(2),
             total: (subtotal + shippingNum + taxNum).toFixed(2),
           },
-          // Optional extras if you want to use them in the template:
           first_name: firstName,
           last_name: lastName,
         };
-        // --------------------------------------------------------------
 
         try {
           await emailjs.send(
@@ -119,13 +103,11 @@ export default function CheckoutAndPay() {
             templateParams,
             "CPWn3sVcyaB-X58Ze"
           );
-          alert("Order details sent to email successfully!");
+          alert("Order details sent to your email successfully!");
         } catch (err) {
           console.error("EmailJS error:", err);
           alert("Payment successful, but failed to send email.");
         }
-
-        // Optional: clear cart here if you want
       },
       onCancel: () => alert("Transaction cancelled"),
     });
@@ -137,7 +119,6 @@ export default function CheckoutAndPay() {
         Checkout
       </h2>
 
-      {/* Contact & amount */}
       <div className="grid gap-3 mb-6">
         <Input label="Email" type="email" value={email} onChange={setEmail} />
         <div className="grid grid-cols-2 gap-3">
@@ -148,15 +129,15 @@ export default function CheckoutAndPay() {
           label="Amount"
           type="number"
           value={amount}
-          onChange={(v) => setAmount(v)}
+          onChange={setAmount}
           min="0"
         />
       </div>
 
-      {/* Delivery details */}
       <h3 className="text-2xl font-bold mb-4 w-full bg-blue-500 text-center text-white py-3">
         Delivery details
       </h3>
+
       <div className="grid gap-3 mb-6">
         <Input
           label="Receiver name"
@@ -186,27 +167,10 @@ export default function CheckoutAndPay() {
             onChange={(v) => updateAddress("state", v)}
           />
         </div>
-        <div className="grid grid-cols-2 gap-3">
-          <Input
-            label="LGA (optional)"
-            value={address.lga}
-            onChange={(v) => updateAddress("lga", v)}
-          />
-          <Input
-            label="Postal code (optional)"
-            value={address.postalCode}
-            onChange={(v) => updateAddress("postalCode", v)}
-          />
-        </div>
         <Input
           label="Country"
           value={address.country}
           onChange={(v) => updateAddress("country", v)}
-        />
-        <Textarea
-          label="Delivery instructions (optional)"
-          value={address.instructions}
-          onChange={(v) => updateAddress("instructions", v)}
         />
       </div>
 
@@ -220,7 +184,6 @@ export default function CheckoutAndPay() {
   );
 }
 
-// Tiny input helpers
 function Input({ label, value, onChange, type = "text", ...rest }) {
   return (
     <label className="flex flex-col gap-1">
@@ -229,20 +192,6 @@ function Input({ label, value, onChange, type = "text", ...rest }) {
         className="border rounded px-3 h-10"
         value={value}
         type={type}
-        onChange={(e) => onChange(e.target.value)}
-        {...rest}
-      />
-    </label>
-  );
-}
-
-function Textarea({ label, value, onChange, ...rest }) {
-  return (
-    <label className="flex flex-col gap-1">
-      <span className="font-medium">{label}</span>
-      <textarea
-        className="border rounded px-3 py-2 min-h-[90px]"
-        value={value}
         onChange={(e) => onChange(e.target.value)}
         {...rest}
       />
