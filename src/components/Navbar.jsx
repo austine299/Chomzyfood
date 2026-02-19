@@ -1,57 +1,42 @@
-import React, { useContext, useState } from "react";
-import { FaSearch, FaShoppingCart, FaBars } from "react-icons/fa";
+import React, { useContext } from "react";
+import { FaMapPin, FaShoppingCart, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { CartContext } from "./CartContext"
+import { CartContext } from "./CartContext";
 
 function Navbar() {
-  const { cart } = useContext(CartContext);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const { cart, setOpenCart } = useContext(CartContext);
+
+  const totalItems = cart.reduce((a, b) => a + b.qty, 0);
 
   return (
-    <section className="fixed bg-white pl-6 pr-6 md:pl-20 md:pr-20 pt-6 pb-6 w-full shadow-md z-50">
-      <div className="flex justify-between items-center">
-        <Link to="/">
-          <img src={`/images/img21.jpg`} alt="logo" className="w-[120px] h-[60px] object-cover" />
-        </Link>
+    <nav className="fixed bg-gray-300 top-0 left-0 w-full flex items-center justify-between px-10 py-6 z-50">
 
-        {/* Desktop Menu */}
-        <ul className="hidden md:flex text-lg font-bold gap-6">
-          <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/">Home</Link></li>
-          <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/product">All Products</Link></li>
-          <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/gallery">Look Book</Link></li>
-          <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/about">About</Link></li>
-          <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/contact">Contact</Link></li>
-        </ul>
+      <div className="flex items-center gap-6">
+        <div className="font-bold text-lg">🍔 CHOMZY FOOD</div>
 
-        {/* Right Icons */}
-        <div className="flex gap-4 items-center">
-          <FaSearch className="cursor-pointer text-xl" />
-          <Link to="/cart" className="relative">
-            <FaShoppingCart className="text-2xl text-red-700" />
-            {cart.length > 0 && (
-              <span className="absolute -top-2 -right-3 bg-red-700 text-white text-xs font-bold rounded-full px-1.5">
-                {cart.length}
-              </span>
-            )}
-          </Link>
-          <FaBars
-            className="md:hidden text-2xl cursor-pointer"
-            onClick={() => setMenuOpen(!menuOpen)}
-          />
+        <div className="flex items-center gap-2 text-sm">
+          <FaMapPin /> Lagos
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <ul className="flex flex-col bg-white shadow-md mt-4 p-4 md:hidden gap-3">
-          <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/">Home</Link></li>
-          <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/product">All Products</Link></li>
-          <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/gallery">Look Book</Link></li>
-          <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/about">About</Link></li>
-          <li><Link className="hover:bg-red-800 hover:text-white py-3 px-5 rounded-md" to="/contact">Contact</Link></li>
-        </ul>
-      )}
-    </section>
+      <div className="flex items-center gap-4">
+        <Link to="/">Home</Link>
+        <Link to="/product">All Products</Link>
+
+        <button className="bg-white px-5 py-2 rounded-full flex gap-2">
+          <FaUser /> Login
+        </button>
+
+        {/* CART BUTTON */}
+        <button
+          onClick={() => setOpenCart(true)}
+          className="bg-black text-white px-5 py-2 rounded-full flex gap-2"
+        >
+          <FaShoppingCart />
+          Cart {totalItems}
+        </button>
+      </div>
+    </nav>
   );
 }
 

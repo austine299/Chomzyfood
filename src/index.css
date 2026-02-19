@@ -3,3 +3,17 @@
 @tailwind utilities;
 
 /* Optional: you can add your own custom styles below */
+@keyframes scaleIn {
+  from {
+    transform: scale(.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-scaleIn {
+  animation: scaleIn .25s ease;
+}

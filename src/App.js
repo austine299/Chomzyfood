@@ -7,30 +7,34 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import Products from "./components/Products";
 import { CartProvider } from "./components/CartContext";
-import Cart from "./components/Cart";
-import PaystackIntegration from "./components/PaystackIntegration";
-import ProductDetails from "./components/ProductDetails";
+import CartModal from "./components/CartModal";
+import { ProductModalProvider } from "./components/ProductModalContext";
+import ProductModal from "./components/ProductModal";
+import Checkout from "./components/Checkout";
+
 
 function App() {
   return (
     <Router>
       <CartProvider>
-        <div className="App">
-          <Navbar />
+        <ProductModalProvider>
+          <div className="App">
+            <Navbar />
+            <CartModal />
+            <ProductModal />
 
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/paystack" element={<PaystackIntegration />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/product/:id" element={<ProductDetails />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/product" element={<Products />} />
-            <Route path="/cart" element={<Cart />} />
-          </Routes>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/product" element={<Products />} />
+              <Route path="/checkout" element={<Checkout />} />
+            </Routes>
 
-          <Footer />
-        </div>
+            <Footer />
+          </div>
+        </ProductModalProvider>
       </CartProvider>
     </Router>
   );
