@@ -10,8 +10,6 @@ export default function CartModal() {
 
   if (!openCart) return null;
 
-  const totalPrice = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-
   return (
     <div className="fixed inset-0 bg-black/40 z-50 flex justify-end">
       <div className="w-[400px] bg-white h-full p-6 overflow-y-auto">
@@ -35,7 +33,7 @@ export default function CartModal() {
 
             <div className="flex-1">
               <h4 className="font-semibold">{item.name}</h4>
-              <p>₦ {item.price.toLocaleString()}</p>
+              <p className="text-xs"><strong>Quantity {item.qty}:</strong> {item.type}</p>
 
               <div className="flex items-center gap-3 mt-2">
                 <button onClick={() => decreaseQty(item.id)}>
@@ -53,8 +51,8 @@ export default function CartModal() {
         ))}
 
         {/* Total */}
-        <div className="mt-6 border-t pt-4 font-bold text-lg">
-          Total: ₦ {totalPrice.toLocaleString()}
+        <div className="mt-6 border-t pt-4 font-bold">
+          <span className="text-lg">Total: </span><span className="text-xs">Price will be discuss on WhatsApp</span>
         </div>
 
         <button

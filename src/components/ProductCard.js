@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FaHeart, FaStar, FaPlus, FaMinus, FaCheck } from "react-icons/fa";
 import { CartContext } from "./CartContext";
 import { ProductModalContext } from "./ProductModalContext";
-
 
 export default function ProductCard({ product }) {
   const { cart, addToCart, increaseQty, decreaseQty } =
@@ -10,16 +9,26 @@ export default function ProductCard({ product }) {
 
   const { openProduct } = useContext(ProductModalContext);
 
+  const [selectedType, setSelectedType] = useState("Plate");
+
   const cartItem = cart.find((item) => item.id === product.id);
   const qty = cartItem?.qty || 0;
 
+  const types = ["Plate", "Portion", "Bowl", "Pack"];
+
   return (
-    <div onClick={() => openProduct(product)} className="bg-gray-100 rounded-3xl p-4 shadow-sm hover:shadow-md transition">
+    <div className="bg-gray-100 rounded-3xl p-4 shadow-sm hover:shadow-md transition">
 
       {/* Image */}
-      <div className="relative rounded-2xl overflow-hidden">
-        <img src={product.image} alt={product.name}
-          className="w-full h-52 object-cover" />
+      <div
+        onClick={() => openProduct(product)}
+        className="relative rounded-2xl overflow-hidden"
+      >
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full h-52 object-cover"
+        />
 
         <button className="absolute top-3 right-3 bg-black/40 p-2 rounded-full text-white">
           <FaHeart />
@@ -46,12 +55,28 @@ export default function ProductCard({ product }) {
         </div>
       </div>
 
+      {/* SIZE SELECTOR */}
+      <select
+        value={selectedType}
+        onChange={(e) => setSelectedType(e.target.value)}
+        className="w-full mt-3 border rounded-xl p-2 text-sm"
+      >
+        {types.map((type) => (
+          <option key={type}>{type}</option>
+        ))}
+      </select>
+
       {/* CART */}
       <div className="mt-4">
         {qty === 0 ? (
           <button
-            onClick={() => addToCart(product)}
-            className="flex items-center gap-2 bg-white px-5 py-3 rounded-full shadow"
+            onClick={() =>
+              addToCart({
+                ...product,
+                type: selectedType, // 🔥 save selected type
+              })
+            }
+            className="flex items-center gap-2 bg-white px-5 py-3 rounded-full shadow w-full justify-center"
           >
             <FaPlus className="text-red-500" />
             Add to cart
@@ -75,7 +100,7 @@ export default function ProductCard({ product }) {
             </button>
 
             <button className="ml-auto flex items-center gap-2 font-bold bg-white px-6 py-2 rounded-full shadow">
-              Added <FaCheck className="text-green-500"/>
+              Added <FaCheck className="text-green-500" />
             </button>
           </div>
         )}
