@@ -27,6 +27,7 @@ export default function Checkout() {
       <table width="100%" style="margin-bottom:12px">
         <tr>
           <td>
+            <b>${item.image}</b><br/>
             <b>${item.name}</b><br/>
             Qty: ${item.qty}<br/>
             Type: ${item.type}
@@ -45,6 +46,7 @@ export default function Checkout() {
       deliveryNote: form.deliveryNote,
       items: itemsHTML,
       total: "Price will be discussed on WhatsApp",
+      deliveryFee
     };
 
     emailjs.send(
@@ -88,6 +90,7 @@ export default function Checkout() {
       `Phone: ${form.phone}\n` +
       `Address: ${form.address}\n\n` +
       `${itemsText}\n\n` +
+      `${deliveryFee}\n\n` + 
       `Total: Price will be discussed on WhatsApp`;
 
     window.open(
@@ -142,6 +145,7 @@ export default function Checkout() {
             <div>
               <h4 className="font-semibold">{item.name}</h4>
               <p className="text-sm">Qty: {item.qty} | {item.type}</p>
+              <p>deliveryFee {deliveryFee}</p>
             </div>
           </div>
         ))}

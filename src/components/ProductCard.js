@@ -4,58 +4,42 @@ import { CartContext } from "./CartContext";
 import { ProductModalContext } from "./ProductModalContext";
 
 export default function ProductCard({ product }) {
-  const { cart, addToCart, increaseQty, decreaseQty } =
-    useContext(CartContext);
-
+  const { cart, addToCart, increaseQty, decreaseQty } = useContext(CartContext);
   const { openProduct } = useContext(ProductModalContext);
 
   const [selectedType, setSelectedType] = useState("Plate");
-
-  const cartItem = cart.find((item) => item.id === product.id);
-  const qty = cartItem?.qty || 0;
-
   const types = ["Plate", "Portion", "Bowl", "Pack"];
+
+  // find the cart item for this product + type
+  const cartItem = cart.find((item) => item.id === product.id && item.type === selectedType);
+  const qty = cartItem?.qty || 0;
 
   return (
     <div className="bg-gray-100 rounded-3xl p-4 shadow-sm hover:shadow-md transition">
 
-      {/* Image */}
-      <div
-        onClick={() => openProduct(product)}
-        className="relative rounded-2xl overflow-hidden"
-      >
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-52 object-cover"
-        />
-
+      {/* IMAGE */}
+      <div onClick={() => openProduct(product)} className="relative rounded-2xl overflow-hidden">
+        <img src={product.image} alt={product.name} className="w-full h-52 object-cover" />
         <button className="absolute top-3 right-3 bg-black/40 p-2 rounded-full text-white">
           <FaHeart />
         </button>
       </div>
 
-      {/* Title */}
+      {/* TITLE */}
       <div className="flex justify-between mt-4">
-        <h3 className="font-semibold text-lg truncate w-2/3">
-          {product.name}
-        </h3>
+        <h3 className="font-semibold text-lg truncate w-2/3">{product.name}</h3>
         <span className="text-sm text-gray-500">{product.time}</span>
       </div>
 
-      {/* Rating */}
+      {/* RATING & PRICE */}
       <div className="flex justify-between items-center mt-2">
         <div className="flex items-center gap-1 text-sm">
-          <FaStar className="text-yellow-500" />
-          {product.rating} ({product.reviews})
+          <FaStar className="text-yellow-500" /> {product.rating} ({product.reviews})
         </div>
-
-        <div className="font-semibold text-lg">
-          ₦ {product.price.toLocaleString()}
-        </div>
+        <div className="font-semibold text-lg">₦ {product.price.toLocaleString()}</div>
       </div>
 
-      {/* SIZE SELECTOR */}
+      {/* TYPE SELECTOR */}
       <select
         value={selectedType}
         onChange={(e) => setSelectedType(e.target.value)}
@@ -66,25 +50,19 @@ export default function ProductCard({ product }) {
         ))}
       </select>
 
-      {/* CART */}
+      {/* CART BUTTONS */}
       <div className="mt-4">
         {qty === 0 ? (
           <button
-            onClick={() =>
-              addToCart({
-                ...product,
-                type: selectedType, // 🔥 save selected type
-              })
-            }
+            onClick={() => addToCart({ ...product, type: selectedType })}
             className="flex items-center gap-2 bg-white px-5 py-3 rounded-full shadow w-full justify-center"
           >
-            <FaPlus className="text-red-500" />
-            Add to cart
+            <FaPlus className="text-red-500" /> Add to cart
           </button>
         ) : (
           <div className="flex items-center gap-4">
             <button
-              onClick={() => decreaseQty(product.id)}
+              onClick={() => decreaseQty(product.id, selectedType)}
               className="w-10 h-10 rounded-full bg-white shadow flex items-center justify-center"
             >
               <FaMinus />
@@ -93,7 +71,7 @@ export default function ProductCard({ product }) {
             <span className="font-semibold">{qty}</span>
 
             <button
-              onClick={() => increaseQty(product.id)}
+              onClick={() => increaseQty(product.id, selectedType)}
               className="w-10 h-10 rounded-full bg-white shadow flex items-center justify-center"
             >
               <FaPlus className="text-red-500" />

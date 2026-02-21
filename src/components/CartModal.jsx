@@ -4,8 +4,7 @@ import { FaPlus, FaMinus, FaTimes } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 export default function CartModal() {
-  const { cart, openCart, setOpenCart, increaseQty, decreaseQty } =
-    useContext(CartContext);
+  const { cart, openCart, setOpenCart, increaseQty, decreaseQty } = useContext(CartContext);
   const navigate = useNavigate();
 
   if (!openCart) return null;
@@ -16,33 +15,28 @@ export default function CartModal() {
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-bold">Your Cart</h2>
-          <FaTimes
-            className="cursor-pointer"
-            onClick={() => setOpenCart(false)}
-          />
+          <FaTimes className="cursor-pointer" onClick={() => setOpenCart(false)} />
         </div>
 
         {/* Items */}
         {cart.map((item) => (
-          <div key={item.id} className="flex gap-4 mb-4">
-            <img
-              src={item.image}
-              alt={item.name}
-              className="w-16 h-16 rounded-lg object-cover"
-            />
+          <div key={`${item.id}-${item.type}`} className="flex gap-4 mb-4">
+            <img src={item.image} alt={item.name} className="w-16 h-16 rounded-lg object-cover" />
 
             <div className="flex-1">
               <h4 className="font-semibold">{item.name}</h4>
-              <p className="text-xs"><strong>Quantity {item.qty}:</strong> {item.type}</p>
+              <p className="text-xs">
+                <strong>Quantity {item.qty}:</strong> {item.type}
+              </p>
 
               <div className="flex items-center gap-3 mt-2">
-                <button onClick={() => decreaseQty(item.id)}>
+                <button onClick={() => decreaseQty(item.id, item.type)}>
                   <FaMinus />
                 </button>
 
-                {item.qty}
+                <span>{item.qty}</span>
 
-                <button onClick={() => increaseQty(item.id)}>
+                <button onClick={() => increaseQty(item.id, item.type)}>
                   <FaPlus />
                 </button>
               </div>
@@ -52,7 +46,8 @@ export default function CartModal() {
 
         {/* Total */}
         <div className="mt-6 border-t pt-4 font-bold">
-          <span className="text-lg">Total: </span><span className="text-xs">Price will be discuss on WhatsApp</span>
+          <span className="text-lg">Total: </span>
+          <span className="text-xs">Price will be discussed on WhatsApp</span>
         </div>
 
         <button
