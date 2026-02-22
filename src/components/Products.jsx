@@ -13,9 +13,13 @@ export default function ProductList() {
       : products.filter((p) => p.category === selectedCategory);
 
   return (
-    <div className="bg-gray-200 min-h-screen p-4 sm:p-6 md:p-8 mt-20">
+    <div className="bg-gray-200 min-h-screen p-4 sm:p-6 md:p-8 ">
+      
       {/* ================= CATEGORY BAR ================= */}
-      <div className="flex gap-3 overflow-x-auto mb-8 pb-2 px-1">
+      <div
+        className="flex gap-3 overflow-x-auto mb-8 pb-2 px-1
+          sticky top-20 z-30 bg-gray-200"
+      >
         {categories.map((cat) => (
           <button
             key={cat}
@@ -33,7 +37,6 @@ export default function ProductList() {
 
       {/* ================= PRODUCTS GRID ================= */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {" "}
         {filteredProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
