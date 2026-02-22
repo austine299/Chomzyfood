@@ -45,10 +45,7 @@ export default function ProductModal() {
           <div className="p-8 flex flex-col justify-center">
             <h2 className="text-3xl font-bold mb-4">{selectedProduct.name}</h2>
             <p className="text-gray-500 mb-6">{selectedProduct.description}</p>
-            <div className="text-2xl font-bold mb-6">
-              ₦ {selectedProduct.price.toLocaleString()}
-            </div>
-
+           
             {/* TYPE SELECTOR */}
             <select
               value={selectedType}

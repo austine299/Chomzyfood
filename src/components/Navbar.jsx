@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import { FaMapPin, FaShoppingCart, FaUser, FaBars, FaTimes } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaMapPin, FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 import { CartContext } from "./CartContext";
 
 function Navbar() {
@@ -9,9 +9,15 @@ function Navbar() {
 
   const totalItems = cart.reduce((a, b) => a + b.qty, 0);
 
+  const linkClasses = ({ isActive }) =>
+    isActive
+      ? "text-red-500 font-semibold"
+      : "hover:text-red-500";
+
   return (
     <nav className="fixed bg-gray-300 top-0 left-0 w-full z-50 shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+        
         {/* Logo */}
         <div className="flex items-center gap-6">
           <div className="font-bold text-lg">🍔 CHI_KITCHEN</div>
@@ -22,12 +28,9 @@ function Navbar() {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-4">
-          <Link to="/" className="hover:text-red-500">Home</Link>
-          <Link to="/product" className="hover:text-red-500">All Products</Link>
-
-          <button className="bg-white px-5 py-2 rounded-full flex gap-2 items-center hover:bg-gray-200">
-            <FaUser /> Login
-          </button>
+          <NavLink to="/" className={linkClasses}>Home</NavLink>
+          <NavLink to="/product" className={linkClasses}>All Products</NavLink>
+          <NavLink to="/portfolio" className={linkClasses}>Portfolio</NavLink>
 
           <button
             onClick={() => setOpenCart(true)}
@@ -49,15 +52,9 @@ function Navbar() {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-gray-200 px-6 py-4 flex flex-col gap-4">
-          <Link to="/" className="hover:text-red-500" onClick={() => setMobileMenuOpen(false)}>Home</Link>
-          <Link to="/product" className="hover:text-red-500" onClick={() => setMobileMenuOpen(false)}>All Products</Link>
-
-          <button
-            className="bg-white px-5 py-2 rounded-full flex gap-2 items-center hover:bg-gray-300"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            <FaUser /> Login
-          </button>
+          <NavLink to="/" className={linkClasses} onClick={() => setMobileMenuOpen(false)}>Home</NavLink>
+          <NavLink to="/product" className={linkClasses} onClick={() => setMobileMenuOpen(false)}>All Products</NavLink>
+          <NavLink to="/portfolio" className={linkClasses} onClick={() => setMobileMenuOpen(false)}>Portfolio</NavLink>
 
           <button
             onClick={() => {

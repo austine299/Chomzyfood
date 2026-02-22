@@ -11,6 +11,7 @@ import CartModal from "./components/CartModal";
 import { ProductModalProvider } from "./components/ProductModalContext";
 import ProductModal from "./components/ProductModal";
 import Checkout from "./components/Checkout";
+import Portfolio from "./components/Portfolio";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/product" element={<Products />} />
               <Route path="/checkout" element={<Checkout />} />
+              <Route path="/portfolio" element={<Portfolio />} />
             </Routes>
 
             <Footer />

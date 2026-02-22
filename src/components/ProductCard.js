@@ -19,7 +19,7 @@ export default function ProductCard({ product }) {
 
       {/* IMAGE */}
       <div onClick={() => openProduct(product)} className="relative rounded-2xl overflow-hidden">
-        <img src={product.image} alt={product.name} className="w-full h-52 object-cover" />
+        <img src={product.image} alt={product.name} className="w-full h-44 object-cover" />
         <button className="absolute top-3 right-3 bg-black/40 p-2 rounded-full text-white">
           <FaHeart />
         </button>
@@ -36,7 +36,6 @@ export default function ProductCard({ product }) {
         <div className="flex items-center gap-1 text-sm">
           <FaStar className="text-yellow-500" /> {product.rating} ({product.reviews})
         </div>
-        <div className="font-semibold text-lg">₦ {product.price.toLocaleString()}</div>
       </div>
 
       {/* TYPE SELECTOR */}
