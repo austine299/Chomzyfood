@@ -10,32 +10,36 @@ export default function ProductCard({ product }) {
   const [selectedType, setSelectedType] = useState("Plate");
   const types = ["Plate", "Portion", "Bowl", "Pack"];
 
-  // find the cart item for this product + type
   const cartItem = cart.find((item) => item.id === product.id && item.type === selectedType);
   const qty = cartItem?.qty || 0;
 
   return (
-    <div className="bg-gray-100 rounded-3xl p-4 shadow-sm hover:shadow-md transition">
+    <div className="bg-gray-100 rounded-3xl p-4 shadow-sm hover:shadow-md transition flex flex-col">
 
       {/* IMAGE */}
-      <div onClick={() => openProduct(product)} className="relative rounded-2xl overflow-hidden">
-        <img src={product.image} alt={product.name} className="w-full h-44 object-cover" />
+      <div
+        onClick={() => openProduct(product)}
+        className="relative rounded-2xl overflow-hidden cursor-pointer"
+      >
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full h-48 sm:h-52 md:h-56 object-cover"
+        />
         <button className="absolute top-3 right-3 bg-black/40 p-2 rounded-full text-white">
           <FaHeart />
         </button>
       </div>
 
-      {/* TITLE */}
-      <div className="flex justify-between mt-4">
+      {/* TITLE & TIME */}
+      <div className="flex justify-between mt-4 items-center">
         <h3 className="font-semibold text-lg truncate w-2/3">{product.name}</h3>
         <span className="text-sm text-gray-500">{product.time}</span>
       </div>
 
-      {/* RATING & PRICE */}
-      <div className="flex justify-between items-center mt-2">
-        <div className="flex items-center gap-1 text-sm">
-          <FaStar className="text-yellow-500" /> {product.rating} ({product.reviews})
-        </div>
+      {/* RATING */}
+      <div className="flex justify-start items-center mt-2 gap-2 text-sm">
+        <FaStar className="text-yellow-500" /> {product.rating} ({product.reviews})
       </div>
 
       {/* TYPE SELECTOR */}
@@ -59,7 +63,7 @@ export default function ProductCard({ product }) {
             <FaPlus className="text-red-500" /> Add to cart
           </button>
         ) : (
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-4">
             <button
               onClick={() => decreaseQty(product.id, selectedType)}
               className="w-10 h-10 rounded-full bg-white shadow flex items-center justify-center"
@@ -76,7 +80,7 @@ export default function ProductCard({ product }) {
               <FaPlus className="text-red-500" />
             </button>
 
-            <button className="ml-auto flex items-center gap-2 font-bold bg-white px-6 py-2 rounded-full shadow">
+            <button className="ml-auto flex items-center gap-2 font-bold bg-white px-6 py-2 rounded-full shadow mt-2 sm:mt-0">
               Added <FaCheck className="text-green-500" />
             </button>
           </div>
